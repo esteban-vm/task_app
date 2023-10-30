@@ -25,28 +25,32 @@ class DrawerScreen extends StatelessWidget {
               ),
             ),
             BlocBuilder<TaskBloc, TaskState>(
-              builder: (context, state) {
-                return GestureDetector(
-                  onTap: () {
-                    Navigator.of(context).pushNamed(HomeScreen.id);
-                  },
-                  child: ListTile(
-                    trailing: Text(state.tasks.length.toString()),
-                    title: const Text('My Tasks'),
-                    leading: const Icon(Icons.folder_special),
+              builder: (context, state) => GestureDetector(
+                onTap: () => Navigator.of(context).pushNamed(
+                  HomeScreen.id,
+                ),
+                child: ListTile(
+                  title: const Text('My Tasks'),
+                  leading: const Icon(Icons.folder_special),
+                  trailing: Text(
+                    state.allTasks.length.toString(),
                   ),
-                );
-              },
+                ),
+              ),
             ),
             const Divider(),
-            GestureDetector(
-              onTap: () {
-                Navigator.of(context).pushNamed(RecycleBinScreen.id);
-              },
-              child: const ListTile(
-                trailing: Text('0'),
-                title: Text('Bin'),
-                leading: Icon(Icons.delete),
+            BlocBuilder<TaskBloc, TaskState>(
+              builder: (context, state) => GestureDetector(
+                onTap: () => Navigator.of(context).pushNamed(
+                  RecycleBinScreen.id,
+                ),
+                child: ListTile(
+                  title: const Text('Bin'),
+                  leading: const Icon(Icons.delete),
+                  trailing: Text(
+                    state.removedTasks.length.toString(),
+                  ),
+                ),
               ),
             ),
           ],

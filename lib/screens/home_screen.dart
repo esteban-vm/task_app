@@ -6,15 +6,14 @@ import 'package:task_app/screens/drawer_screen.dart';
 import 'package:task_app/widgets/task_list.dart';
 
 class HomeScreen extends StatelessWidget {
-  static const id = 'home';
-
   const HomeScreen({super.key});
+  static const id = 'home';
 
   @override
   Widget build(context) {
     return BlocBuilder<TaskBloc, TaskState>(
       builder: (context, state) {
-        List<Task> tasks = state.tasks;
+        List<Task> tasks = state.allTasks;
         return Scaffold(
           appBar: AppBar(
             title: const Text('Task App'),
@@ -31,7 +30,9 @@ class HomeScreen extends StatelessWidget {
               children: <Widget>[
                 Center(
                   child: Chip(
-                    label: Text('${state.tasks.length} Tasks'),
+                    label: Text(
+                      '${state.allTasks.length} Tasks',
+                    ),
                   ),
                 ),
                 TaskList(tasks: tasks),

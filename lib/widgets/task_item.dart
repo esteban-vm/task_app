@@ -17,13 +17,21 @@ class TaskItem extends StatelessWidget {
       ),
       trailing: Checkbox(
         value: task.isDone,
-        onChanged: (_) {
-          context.read<TaskBloc>().add(UpdateTask(task: task));
-        },
+        onChanged: !task.isDeleted
+            ? (_) {
+                context.read<TaskBloc>().add(UpdateTask(task: task));
+              }
+            : null,
       ),
-      onLongPress: () {
-        context.read<TaskBloc>().add(DeleteTask(task: task));
-      },
+      onLongPress: () => _removeOrDeleteTask(context, task),
     );
+  }
+
+  void _removeOrDeleteTask(BuildContext context, Task task) {
+    if (task.isDeleted) {
+      context.read<TaskBloc>().add(DeleteTask(task: task));
+    } else {
+      context.read<TaskBloc>().add(RemoveTask(task: task));
+    }
   }
 }

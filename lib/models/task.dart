@@ -40,8 +40,8 @@ class Task extends Equatable {
     return Task(
       id: map['id'] ?? '',
       title: map['title'] ?? '',
-      isDone: map['isDone'],
-      isDeleted: map['isDeleted'],
+      isDone: map['isDone'] ?? false,
+      isDeleted: map['isDeleted'] ?? false,
     );
   }
 
