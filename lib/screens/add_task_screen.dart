@@ -3,14 +3,14 @@ import 'package:task_app/blocs/bloc_exports.dart';
 import 'package:task_app/models/task.dart';
 import 'package:task_app/services/guid_gen.dart';
 
-class AddTaskPage extends StatefulWidget {
-  const AddTaskPage({super.key});
+class AddTaskScreen extends StatefulWidget {
+  const AddTaskScreen({super.key});
 
   @override
-  State<AddTaskPage> createState() => _AddTaskPageState();
+  State<AddTaskScreen> createState() => _AddTaskScreenState();
 }
 
-class _AddTaskPageState extends State<AddTaskPage> {
+class _AddTaskScreenState extends State<AddTaskScreen> {
   @override
   Widget build(context) {
     TextEditingController titleController = TextEditingController();
