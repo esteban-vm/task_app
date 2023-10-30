@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:task_app/blocs/bloc_exports.dart';
+import 'package:task_app/screens/home_screen.dart';
+import 'package:task_app/screens/recycle_bin_screen.dart';
 
 class DrawerScreen extends StatelessWidget {
   const DrawerScreen({super.key});
@@ -21,16 +24,30 @@ class DrawerScreen extends StatelessWidget {
                 style: Theme.of(context).textTheme.headlineSmall,
               ),
             ),
-            const ListTile(
-              trailing: Text('0'),
-              title: Text('My Tasks'),
-              leading: Icon(Icons.folder_special),
+            BlocBuilder<TaskBloc, TaskState>(
+              builder: (context, state) {
+                return GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).pushNamed(HomeScreen.id);
+                  },
+                  child: ListTile(
+                    trailing: Text(state.tasks.length.toString()),
+                    title: const Text('My Tasks'),
+                    leading: const Icon(Icons.folder_special),
+                  ),
+                );
+              },
             ),
             const Divider(),
-            const ListTile(
-              trailing: Text('0'),
-              title: Text('Bin'),
-              leading: Icon(Icons.delete),
+            GestureDetector(
+              onTap: () {
+                Navigator.of(context).pushNamed(RecycleBinScreen.id);
+              },
+              child: const ListTile(
+                trailing: Text('0'),
+                title: Text('Bin'),
+                leading: Icon(Icons.delete),
+              ),
             ),
           ],
         ),

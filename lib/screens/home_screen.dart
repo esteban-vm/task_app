@@ -6,6 +6,8 @@ import 'package:task_app/screens/drawer_screen.dart';
 import 'package:task_app/widgets/task_list.dart';
 
 class HomeScreen extends StatelessWidget {
+  static const id = 'home';
+
   const HomeScreen({super.key});
 
   @override

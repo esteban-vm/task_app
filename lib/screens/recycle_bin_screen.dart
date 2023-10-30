@@ -3,6 +3,8 @@ import 'package:task_app/screens/drawer_screen.dart';
 import 'package:task_app/widgets/task_list.dart';
 
 class RecycleBinScreen extends StatelessWidget {
+  static const id = 'recycle_bin';
+
   const RecycleBinScreen({super.key});
 
   @override
