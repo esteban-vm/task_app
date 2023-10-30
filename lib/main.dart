@@ -9,6 +9,7 @@ Future<void> main() async {
   final directory = await getApplicationDocumentsDirectory();
   final storage = await HydratedStorage.build(storageDirectory: directory);
   HydratedBloc.storage = storage;
+  Bloc.observer = MyBlocObserver();
   runApp(TaskApp(router: AppRouter()));
 }
 
