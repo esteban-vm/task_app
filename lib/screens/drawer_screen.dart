@@ -11,7 +11,7 @@ class DrawerScreen extends StatelessWidget {
     return SafeArea(
       child: Drawer(
         child: Column(
-          children: [
+          children: <Widget>[
             Container(
               color: Colors.grey,
               width: double.infinity,
