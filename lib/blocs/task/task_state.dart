@@ -22,10 +22,14 @@ class TaskState extends Equatable {
   factory TaskState.fromMap(Map<String, dynamic> map) {
     return TaskState(
       allTasks: List<Task>.from(
-        map['allTasks'].map<Task>((x) => Task.fromMap(x)),
+        map['allTasks']?.map(
+          (x) => Task.fromMap(x),
+        ),
       ),
       removedTasks: List<Task>.from(
-        map['removedTasks'].map<Task>((x) => Task.fromMap(x)),
+        map['removedTasks']?.map(
+          (x) => Task.fromMap(x),
+        ),
       ),
     );
   }
