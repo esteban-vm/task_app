@@ -10,15 +10,16 @@ Future<void> main() async {
   final storage = await HydratedStorage.build(storageDirectory: directory);
   HydratedBloc.storage = storage;
   Bloc.observer = MyBlocObserver();
-  runApp(TaskApp(router: AppRouter()));
+  runApp(const TaskApp());
 }
 
 class TaskApp extends StatelessWidget {
-  const TaskApp({super.key, required this.router});
-  final AppRouter router;
+  const TaskApp({super.key});
 
   @override
   Widget build(context) {
+    final router = AppRouter();
+
     return BlocProvider(
       create: (_) => TaskBloc(),
       child: MaterialApp(
