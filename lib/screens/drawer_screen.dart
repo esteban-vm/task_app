@@ -26,7 +26,7 @@ class DrawerScreen extends StatelessWidget {
             ),
             BlocBuilder<TaskBloc, TaskState>(
               builder: (context, state) => GestureDetector(
-                onTap: () => Navigator.of(context).pushNamed(
+                onTap: () => Navigator.of(context).pushReplacementNamed(
                   HomeScreen.id,
                 ),
                 child: ListTile(
@@ -41,7 +41,7 @@ class DrawerScreen extends StatelessWidget {
             const Divider(),
             BlocBuilder<TaskBloc, TaskState>(
               builder: (context, state) => GestureDetector(
-                onTap: () => Navigator.of(context).pushNamed(
+                onTap: () => Navigator.of(context).pushReplacementNamed(
                   RecycleBinScreen.id,
                 ),
                 child: ListTile(
