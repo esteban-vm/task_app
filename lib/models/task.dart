@@ -1,36 +1,40 @@
 import 'package:equatable/equatable.dart';
 
+// ignore: must_be_immutable
 class Task extends Equatable {
-  const Task({
+  Task({
     required this.id,
-    required this.title,
-    this.isDone = false,
-    this.isDeleted = false,
-  });
+    required this.content,
+    this.isDone,
+    this.isDeleted,
+  }) {
+    isDone = isDone ?? false;
+    isDeleted = isDeleted ?? false;
+  }
 
   final String id;
-  final String title;
-  final bool isDone;
-  final bool isDeleted;
+  final String content;
+  bool? isDone;
+  bool? isDeleted;
 
   Task copyWith({
     String? id,
-    String? title,
+    String? content,
     bool? isDone,
     bool? isDeleted,
   }) {
     return Task(
       id: id ?? this.id,
-      title: title ?? this.title,
-      isDone: isDone ?? false,
-      isDeleted: isDeleted ?? false,
+      content: content ?? this.content,
+      isDone: isDone ?? this.isDone,
+      isDeleted: isDeleted ?? this.isDeleted,
     );
   }
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'id': id,
-      'title': title,
+      'content': content,
       'isDone': isDone,
       'isDeleted': isDeleted,
     };
@@ -39,12 +43,12 @@ class Task extends Equatable {
   factory Task.fromMap(Map<String, dynamic> map) {
     return Task(
       id: map['id'] ?? '',
-      title: map['title'] ?? '',
-      isDone: map['isDone'] ?? false,
-      isDeleted: map['isDeleted'] ?? false,
+      content: map['content'] ?? '',
+      isDone: map['isDone'],
+      isDeleted: map['isDeleted'],
     );
   }
 
   @override
-  List<Object?> get props => [id, title, isDone, isDeleted];
+  List<Object?> get props => [id, content, isDone, isDeleted];
 }

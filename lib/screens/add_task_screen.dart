@@ -49,7 +49,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                   onPressed: () {
                     Task task = Task(
                       id: GUIDGen.generate(),
-                      title: titleController.text,
+                      content: titleController.text,
                     );
                     context.read<TaskBloc>().add(AddTask(task: task));
                     Navigator.pop(context);
