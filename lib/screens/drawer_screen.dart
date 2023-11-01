@@ -53,6 +53,20 @@ class DrawerScreen extends StatelessWidget {
                 ),
               ),
             ),
+            BlocBuilder<ThemeBloc, ThemeState>(
+              builder: (context, state) {
+                return Switch(
+                  value: state.isDark,
+                  onChanged: (value) {
+                    if (value) {
+                      context.read<ThemeBloc>().add(DarkOn());
+                    } else {
+                      context.read<ThemeBloc>().add(DarkOff());
+                    }
+                  },
+                );
+              },
+            ),
           ],
         ),
       ),

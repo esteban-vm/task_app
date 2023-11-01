@@ -1,4 +1,4 @@
-import 'package:bloc/bloc.dart';
+import 'package:task_app/blocs/bloc_exports.dart';
 
 class MyBlocObserver extends BlocObserver {
   @override
