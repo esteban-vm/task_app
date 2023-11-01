@@ -34,7 +34,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
               autofocus: true,
               controller: titleController,
               decoration: const InputDecoration(
-                label: Text('Title'),
+                label: Text('Content'),
                 border: OutlineInputBorder(),
               ),
             ),
