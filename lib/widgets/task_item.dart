@@ -10,7 +10,8 @@ class TaskItem extends StatelessWidget {
   Widget build(context) {
     return ListTile(
       title: Text(
-        task.content,
+        task.title,
+        overflow: TextOverflow.ellipsis,
         style: TextStyle(
           decoration: task.isDone ? TextDecoration.lineThrough : null,
         ),

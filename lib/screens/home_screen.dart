@@ -32,7 +32,7 @@ class _HomeScreenState extends State<HomeScreen> {
   int _selectedPageIndex = 0;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(_pages[_selectedPageIndex]['title']),
@@ -82,6 +82,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void _showModal(BuildContext context) {
     showModalBottomSheet(
       context: context,
+      isScrollControlled: true,
       builder: (_) => const SingleChildScrollView(child: AddTaskScreen()),
     );
   }
