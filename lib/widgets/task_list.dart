@@ -3,15 +3,15 @@ import 'package:task_app/models/task.dart';
 import 'package:task_app/widgets/task_item.dart';
 
 class TaskList extends StatelessWidget {
-  const TaskList({super.key, required List<Task> tasks}) : _tasks = tasks;
-  final List<Task> _tasks;
+  const TaskList({super.key, required this.tasks});
+  final List<Task> tasks;
 
   @override
   Widget build(context) {
     return Expanded(
       child: SingleChildScrollView(
         child: ExpansionPanelList.radio(
-          children: _tasks.map((task) {
+          children: tasks.map((task) {
             return ExpansionPanelRadio(
               value: task.id,
               headerBuilder: (_, __) => TaskItem(task: task),
