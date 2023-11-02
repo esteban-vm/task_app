@@ -6,17 +6,11 @@ class AppRouter {
   Route? onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
       case HomeScreen.id:
-        {
-          return MaterialPageRoute(
-            builder: (_) => const HomeScreen(),
-          );
-        }
+        return MaterialPageRoute(builder: (_) => const HomeScreen());
+
       case RecycleBinScreen.id:
-        {
-          return MaterialPageRoute(
-            builder: (_) => const RecycleBinScreen(),
-          );
-        }
+        return MaterialPageRoute(builder: (_) => const RecycleBinScreen());
+
       default:
         return null;
     }

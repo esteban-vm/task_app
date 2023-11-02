@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:task_app/blocs/bloc_exports.dart';
-import 'package:task_app/screens/home_screen.dart';
 import 'package:task_app/screens/recycle_bin_screen.dart';
+import 'package:task_app/screens/home_screen.dart';
 
 class DrawerScreen extends StatelessWidget {
   const DrawerScreen({super.key});
@@ -33,7 +33,7 @@ class DrawerScreen extends StatelessWidget {
                   title: const Text('My Tasks'),
                   leading: const Icon(Icons.folder_special),
                   trailing: Text(
-                    state.allTasks.length.toString(),
+                    '${state.pendingTasks.length} | ${state.completedTasks.length}',
                   ),
                 ),
               ),

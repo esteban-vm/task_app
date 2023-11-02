@@ -1,51 +1,81 @@
 import 'package:flutter/material.dart';
-import 'package:task_app/blocs/bloc_exports.dart';
-import 'package:task_app/models/task.dart';
 import 'package:task_app/screens/add_task_screen.dart';
+import 'package:task_app/screens/completed_tasks_screen.dart';
 import 'package:task_app/screens/drawer_screen.dart';
-import 'package:task_app/widgets/task_list.dart';
+import 'package:task_app/screens/favorite_tasks_screen.dart';
+import 'package:task_app/screens/pending_tasks_screen.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
-  static const id = 'home';
+  static const id = 'tabs';
 
   @override
-  Widget build(context) {
-    return BlocBuilder<TaskBloc, TaskState>(
-      builder: (context, state) {
-        List<Task> tasks = state.allTasks;
-        return Scaffold(
-          appBar: AppBar(
-            title: const Text('Task App'),
-            actions: <Widget>[
-              IconButton(
-                icon: const Icon(Icons.add),
-                onPressed: () => _showModal(context),
-              ),
-            ],
-          ),
-          drawer: const DrawerScreen(),
-          body: SafeArea(
-            child: Column(
-              children: <Widget>[
-                Center(
-                  child: Chip(
-                    label: Text(
-                      '${state.allTasks.length} Tasks',
-                    ),
-                  ),
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  final List<Map<String, dynamic>> _pages = [
+    {
+      'title': 'Pending Tasks',
+      'name': const PendingTasksScreen(),
+    },
+    {
+      'title': 'Completed Tasks',
+      'name': const CompletedTasksScreen(),
+    },
+    {
+      'title': 'Favorite Tasks',
+      'name': const FavoriteTasksScreen(),
+    },
+  ];
+
+  int _selectedPageIndex = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(_pages[_selectedPageIndex]['title']),
+        actions: _selectedPageIndex == 0
+            ? <Widget>[
+                IconButton(
+                  icon: const Icon(Icons.add),
+                  onPressed: () => _showModal(context),
                 ),
-                TaskList(tasks: tasks),
-              ],
-            ),
+              ]
+            : null,
+      ),
+      drawer: const DrawerScreen(),
+      body: _pages[_selectedPageIndex]['name'],
+      floatingActionButton: _selectedPageIndex == 0
+          ? FloatingActionButton(
+              tooltip: 'Add task',
+              child: const Icon(Icons.add),
+              onPressed: () => _showModal(context),
+            )
+          : null,
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _selectedPageIndex,
+        onTap: (value) {
+          setState(() {
+            _selectedPageIndex = value;
+          });
+        },
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            label: 'Pending',
+            icon: Icon(Icons.pending_actions),
           ),
-          floatingActionButton: FloatingActionButton(
-            tooltip: 'Add task',
-            child: const Icon(Icons.add),
-            onPressed: () => _showModal(context),
+          BottomNavigationBarItem(
+            label: 'Completed',
+            icon: Icon(Icons.done),
           ),
-        );
-      },
+          BottomNavigationBarItem(
+            label: 'Favorite',
+            icon: Icon(Icons.favorite),
+          ),
+        ],
+      ),
     );
   }
 
