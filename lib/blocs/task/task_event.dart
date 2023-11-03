@@ -15,24 +15,32 @@ class AddTask extends TaskEvent {
   List<Object> get props => [task];
 }
 
-class UpdateTask extends TaskEvent {
-  const UpdateTask({required this.task});
+class ToggleCompletedTask extends TaskEvent {
+  const ToggleCompletedTask({required this.task});
   final Task task;
 
   @override
   List<Object> get props => [task];
 }
 
-class RemoveTask extends TaskEvent {
-  const RemoveTask({required this.task});
+class ToggleFavoriteTask extends TaskEvent {
+  const ToggleFavoriteTask({required this.task});
   final Task task;
 
   @override
   List<Object> get props => [task];
 }
 
-class DeleteTask extends TaskEvent {
-  const DeleteTask({required this.task});
+class RemoveTaskTemporarily extends TaskEvent {
+  const RemoveTaskTemporarily({required this.task});
+  final Task task;
+
+  @override
+  List<Object> get props => [task];
+}
+
+class RemoveTaskPermanently extends TaskEvent {
+  const RemoveTaskPermanently({required this.task});
   final Task task;
 
   @override

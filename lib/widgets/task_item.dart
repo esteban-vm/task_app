@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:task_app/blocs/bloc_exports.dart';
 import 'package:task_app/models/task.dart';
+import 'package:task_app/widgets/popup_menu.dart';
 
 class TaskItem extends StatelessWidget {
   const TaskItem({super.key, required this.task});
@@ -8,37 +10,76 @@ class TaskItem extends StatelessWidget {
 
   @override
   Widget build(context) {
-    return ListTile(
-      title: Text(
-        task.title,
-        overflow: TextOverflow.ellipsis,
-        style: TextStyle(
-          decoration: task.isDone ? TextDecoration.lineThrough : null,
-        ),
+    return Padding(
+      padding: const EdgeInsets.only(left: 10.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          Expanded(
+            child: Row(
+              children: <Widget>[
+                !task.isFavorite
+                    ? const Icon(Icons.star_outline)
+                    : const Icon(Icons.star),
+                const SizedBox(width: 10.0),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text(
+                        task.title,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          fontSize: 18.0,
+                          decoration: task.isCompleted
+                              ? TextDecoration.lineThrough
+                              : null,
+                        ),
+                      ),
+                      Text(
+                        DateFormat()
+                            .add_yMMMd()
+                            .add_Hms()
+                            .format(DateTime.parse(task.date)),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Row(
+            children: <Widget>[
+              Checkbox(
+                value: task.isCompleted,
+                onChanged: !task.isDeleted
+                    ? (_) {
+                        context
+                            .read<TaskBloc>()
+                            .add(ToggleCompletedTask(task: task));
+                      }
+                    : null,
+              ),
+              PopupMenu(
+                task: task,
+                onRemoveTemporarily: () {
+                  context
+                      .read<TaskBloc>()
+                      .add(RemoveTaskTemporarily(task: task));
+                },
+                onRemovePermanently: () {
+                  context
+                      .read<TaskBloc>()
+                      .add(RemoveTaskPermanently(task: task));
+                },
+                onToggleFavorite: () {
+                  context.read<TaskBloc>().add(ToggleFavoriteTask(task: task));
+                },
+              ),
+            ],
+          ),
+        ],
       ),
-      trailing: Checkbox(
-        value: task.isDone,
-        onChanged: _handleChanged(context, task),
-      ),
-      onLongPress: _handleLongPress(context, task),
     );
-  }
-
-  void Function(bool? _)? _handleChanged(BuildContext context, Task task) {
-    if (!task.isDeleted) {
-      return (_) => context.read<TaskBloc>().add(UpdateTask(task: task));
-    } else {
-      return null;
-    }
-  }
-
-  void Function() _handleLongPress(BuildContext context, Task task) {
-    return () {
-      if (task.isDeleted) {
-        context.read<TaskBloc>().add(DeleteTask(task: task));
-      } else {
-        context.read<TaskBloc>().add(RemoveTask(task: task));
-      }
-    };
   }
 }

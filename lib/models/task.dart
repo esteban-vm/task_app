@@ -5,29 +5,50 @@ class Task extends Equatable {
     required this.id,
     required this.title,
     required this.description,
-    this.isDone = false,
+    required this.date,
+    this.isCompleted = false,
     this.isDeleted = false,
+    this.isFavorite = false,
   });
 
   final String id;
   final String title;
   final String description;
-  final bool isDone;
+  final String date;
+  final bool isCompleted;
   final bool isDeleted;
+  final bool isFavorite;
+
+  @override
+  List<Object?> get props {
+    return [
+      id,
+      title,
+      description,
+      date,
+      isCompleted,
+      isDeleted,
+      isFavorite,
+    ];
+  }
 
   Task copyWith({
     String? id,
     String? title,
     String? description,
-    bool? isDone,
+    String? date,
+    bool? isCompleted,
     bool? isDeleted,
+    bool? isFavorite,
   }) {
     return Task(
       id: id ?? this.id,
       title: title ?? this.title,
       description: description ?? this.description,
-      isDone: isDone ?? this.isDone,
+      date: date ?? this.date,
+      isCompleted: isCompleted ?? this.isCompleted,
       isDeleted: isDeleted ?? this.isDeleted,
+      isFavorite: isFavorite ?? this.isFavorite,
     );
   }
 
@@ -36,8 +57,10 @@ class Task extends Equatable {
       'id': id,
       'title': title,
       'description': description,
-      'isDone': isDone,
+      'date': date,
+      'isCompleted': isCompleted,
       'isDeleted': isDeleted,
+      'isFavorite': isFavorite,
     };
   }
 
@@ -46,17 +69,10 @@ class Task extends Equatable {
       id: map['id'] ?? '',
       title: map['title'] ?? '',
       description: map['description'] ?? '',
-      isDone: map['isDone'],
+      date: map['date'] ?? '',
+      isCompleted: map['isCompleted'],
       isDeleted: map['isDeleted'],
+      isFavorite: map['isFavorite'],
     );
   }
-
-  @override
-  List<Object?> get props => [
-        id,
-        title,
-        description,
-        isDone,
-        isDeleted,
-      ];
 }

@@ -63,6 +63,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                       id: GUIDGen.generate(),
                       title: titleController.text,
                       description: descriptionController.text,
+                      date: DateTime.now().toString(),
                     );
                     context.read<TaskBloc>().add(AddTask(task: task));
                     Navigator.pop(context);
