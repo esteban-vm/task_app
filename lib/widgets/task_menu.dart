@@ -1,19 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:task_app/blocs/bloc_exports.dart';
 import 'package:task_app/models/task.dart';
 
-class PopupMenu extends StatelessWidget {
-  const PopupMenu({
-    super.key,
-    required this.task,
-    required this.onToggleFavorite,
-    required this.onRemoveTemporarily,
-    required this.onRemovePermanently,
-  });
-
+class TaskMenu extends StatelessWidget {
+  const TaskMenu({super.key, required this.task});
   final Task task;
-  final VoidCallback onToggleFavorite;
-  final VoidCallback onRemoveTemporarily;
-  final VoidCallback onRemovePermanently;
 
   @override
   Widget build(context) {
@@ -30,7 +21,9 @@ class PopupMenu extends StatelessWidget {
               ),
             ),
             PopupMenuItem(
-              onTap: onToggleFavorite,
+              onTap: () {
+                context.read<TaskBloc>().add(ToggleFavoriteTask(task: task));
+              },
               child: TextButton.icon(
                 onPressed: null,
                 icon: !task.isFavorite
@@ -42,7 +35,9 @@ class PopupMenu extends StatelessWidget {
               ),
             ),
             PopupMenuItem(
-              onTap: onRemoveTemporarily,
+              onTap: () {
+                context.read<TaskBloc>().add(RemoveTaskTemporarily(task: task));
+              },
               child: TextButton.icon(
                 onPressed: null,
                 icon: const Icon(Icons.delete),
@@ -53,6 +48,7 @@ class PopupMenu extends StatelessWidget {
         } else {
           return <PopupMenuItem>[
             PopupMenuItem(
+              onTap: () {},
               child: TextButton.icon(
                 onPressed: null,
                 icon: const Icon(Icons.restore_from_trash),
@@ -60,7 +56,9 @@ class PopupMenu extends StatelessWidget {
               ),
             ),
             PopupMenuItem(
-              onTap: onRemovePermanently,
+              onTap: () {
+                context.read<TaskBloc>().add(RemoveTaskPermanently(task: task));
+              },
               child: TextButton.icon(
                 onPressed: null,
                 icon: const Icon(Icons.delete_forever),
