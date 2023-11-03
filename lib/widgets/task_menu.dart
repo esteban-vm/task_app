@@ -57,7 +57,9 @@ class TaskMenu extends StatelessWidget {
         } else {
           return <PopupMenuItem>[
             PopupMenuItem(
-              onTap: () {},
+              onTap: () {
+                context.read<TaskBloc>().add(RestoreTask(task: task));
+              },
               child: TextButton.icon(
                 onPressed: null,
                 icon: const Icon(Icons.restore_from_trash),

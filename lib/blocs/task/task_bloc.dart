@@ -9,6 +9,7 @@ class TaskBloc extends HydratedBloc<TaskEvent, TaskState> {
   TaskBloc() : super(const TaskState()) {
     on<AddTask>(_onAdd);
     on<EditTask>(_onEdit);
+    on<RestoreTask>(_onRestore);
     on<ToggleCompletedTask>(_onToggleCompleted);
     on<ToggleFavoriteTask>(_onToggleFavorite);
     on<RemoveTaskTemporarily>(_onRemoveTemporarily);
@@ -19,12 +20,13 @@ class TaskBloc extends HydratedBloc<TaskEvent, TaskState> {
     AddTask event,
     Emitter<TaskState> emit,
   ) {
+    final task = event.task;
     var pendingTasks = state.pendingTasks;
     final completedTasks = state.completedTasks;
     final favoriteTasks = state.favoriteTasks;
     final removedTasks = state.removedTasks;
 
-    pendingTasks = List.from(pendingTasks)..add(event.task);
+    pendingTasks = List.from(pendingTasks)..add(task);
 
     emit(
       TaskState(
@@ -58,6 +60,34 @@ class TaskBloc extends HydratedBloc<TaskEvent, TaskState> {
       ..insert(0, newTask);
 
     completedTasks = completedTasks..remove(oldTask);
+
+    emit(
+      TaskState(
+        pendingTasks: pendingTasks,
+        completedTasks: completedTasks,
+        favoriteTasks: favoriteTasks,
+        removedTasks: removedTasks,
+      ),
+    );
+  }
+
+  void _onRestore(
+    RestoreTask event,
+    Emitter<TaskState> emit,
+  ) {
+    final task = event.task;
+    final restoredTask = task.copyWith(
+      isCompleted: false,
+      isRemoved: false,
+      isFavorite: false,
+    );
+    var pendingTasks = state.pendingTasks;
+    final completedTasks = state.completedTasks;
+    final favoriteTasks = state.favoriteTasks;
+    var removedTasks = state.removedTasks;
+
+    pendingTasks = List.from(pendingTasks)..insert(0, restoredTask);
+    removedTasks = List.from(removedTasks)..remove(task);
 
     emit(
       TaskState(
