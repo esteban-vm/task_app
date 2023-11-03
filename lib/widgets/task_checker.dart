@@ -10,7 +10,7 @@ class TaskChecker extends StatelessWidget {
   Widget build(context) {
     return Checkbox(
       value: task.isCompleted,
-      onChanged: !task.isDeleted
+      onChanged: !task.isRemoved
           ? (_) => context.read<TaskBloc>().add(ToggleCompletedTask(task: task))
           : null,
     );

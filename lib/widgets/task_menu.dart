@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:task_app/blocs/bloc_exports.dart';
 import 'package:task_app/models/task.dart';
+import 'package:task_app/screens/edit_task_screen.dart';
 
 class TaskMenu extends StatelessWidget {
   const TaskMenu({super.key, required this.task});
@@ -9,11 +10,19 @@ class TaskMenu extends StatelessWidget {
   @override
   Widget build(context) {
     return PopupMenuButton(
-      itemBuilder: (_) {
-        if (!task.isDeleted) {
+      itemBuilder: (context) {
+        if (!task.isRemoved) {
           return <PopupMenuItem>[
             PopupMenuItem(
-              onTap: () {},
+              onTap: () {
+                showModalBottomSheet(
+                  context: context,
+                  isScrollControlled: true,
+                  builder: (_) => SingleChildScrollView(
+                    child: EditTaskScreen(task: task),
+                  ),
+                );
+              },
               child: TextButton.icon(
                 onPressed: null,
                 icon: const Icon(Icons.edit),
@@ -30,8 +39,8 @@ class TaskMenu extends StatelessWidget {
                     ? const Icon(Icons.bookmark_add_outlined)
                     : const Icon(Icons.bookmark_remove),
                 label: !task.isFavorite
-                    ? const Text('Add to Bookmarks')
-                    : const Text('Remove from Bookmarks'),
+                    ? const Text('Add to\nBookmarks')
+                    : const Text('Remove from\nBookmarks'),
               ),
             ),
             PopupMenuItem(

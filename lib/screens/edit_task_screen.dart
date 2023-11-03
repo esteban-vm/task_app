@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:task_app/blocs/bloc_exports.dart';
 import 'package:task_app/models/task.dart';
-import 'package:task_app/services/guid_gen.dart';
 
-class AddTaskScreen extends StatelessWidget {
-  const AddTaskScreen({super.key});
+class EditTaskScreen extends StatelessWidget {
+  const EditTaskScreen({super.key, required this.task});
+  final Task task;
 
   @override
   Widget build(context) {
-    final titleController = TextEditingController();
-    final descriptionController = TextEditingController();
+    final titleController = TextEditingController(text: task.title);
+    final descriptionController = TextEditingController(text: task.description);
 
     return Container(
       padding: EdgeInsets.only(
@@ -20,7 +20,7 @@ class AddTaskScreen extends StatelessWidget {
         child: Column(
           children: <Widget>[
             const Text(
-              'Add Task',
+              'Edit Task',
               style: TextStyle(fontSize: 24.0),
             ),
             const SizedBox(
@@ -54,13 +54,18 @@ class AddTaskScreen extends StatelessWidget {
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    final task = Task(
-                      id: GUIDGen.generate(),
+                    final newTask = Task(
+                      id: task.id,
                       title: titleController.text,
                       description: descriptionController.text,
                       date: DateTime.now().toString(),
+                      isCompleted: false,
+                      // isDeleted: false,
+                      isFavorite: task.isFavorite,
                     );
-                    context.read<TaskBloc>().add(AddTask(task: task));
+                    context
+                        .read<TaskBloc>()
+                        .add(EditTask(oldTask: task, newTask: newTask));
                     Navigator.pop(context);
                   },
                   child: const Text('Save'),

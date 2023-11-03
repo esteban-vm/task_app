@@ -40,7 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ? <Widget>[
                 IconButton(
                   icon: const Icon(Icons.add),
-                  onPressed: () => _showModal(context),
+                  onPressed: () => _addTask(context),
                 ),
               ]
             : null,
@@ -51,7 +51,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ? FloatingActionButton(
               tooltip: 'Add task',
               child: const Icon(Icons.add),
-              onPressed: () => _showModal(context),
+              onPressed: () => _addTask(context),
             )
           : null,
       bottomNavigationBar: BottomNavigationBar(
@@ -79,7 +79,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  void _showModal(BuildContext context) {
+  void _addTask(BuildContext context) {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,

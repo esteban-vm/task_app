@@ -7,7 +7,7 @@ class Task extends Equatable {
     required this.description,
     required this.date,
     this.isCompleted = false,
-    this.isDeleted = false,
+    this.isRemoved = false,
     this.isFavorite = false,
   });
 
@@ -16,7 +16,7 @@ class Task extends Equatable {
   final String description;
   final String date;
   final bool isCompleted;
-  final bool isDeleted;
+  final bool isRemoved;
   final bool isFavorite;
 
   @override
@@ -27,7 +27,7 @@ class Task extends Equatable {
       description,
       date,
       isCompleted,
-      isDeleted,
+      isRemoved,
       isFavorite,
     ];
   }
@@ -38,7 +38,7 @@ class Task extends Equatable {
     String? description,
     String? date,
     bool? isCompleted,
-    bool? isDeleted,
+    bool? isRemoved,
     bool? isFavorite,
   }) {
     return Task(
@@ -47,7 +47,7 @@ class Task extends Equatable {
       description: description ?? this.description,
       date: date ?? this.date,
       isCompleted: isCompleted ?? this.isCompleted,
-      isDeleted: isDeleted ?? this.isDeleted,
+      isRemoved: isRemoved ?? this.isRemoved,
       isFavorite: isFavorite ?? this.isFavorite,
     );
   }
@@ -59,7 +59,7 @@ class Task extends Equatable {
       'description': description,
       'date': date,
       'isCompleted': isCompleted,
-      'isDeleted': isDeleted,
+      'isRemoved': isRemoved,
       'isFavorite': isFavorite,
     };
   }
@@ -71,7 +71,7 @@ class Task extends Equatable {
       description: map['description'] ?? '',
       date: map['date'] ?? '',
       isCompleted: map['isCompleted'],
-      isDeleted: map['isDeleted'],
+      isRemoved: map['isRemoved'],
       isFavorite: map['isFavorite'],
     );
   }
