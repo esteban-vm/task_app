@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:task_app/blocs/bloc_exports.dart';
-import 'package:task_app/screens/recycle_bin_screen.dart';
 import 'package:task_app/screens/home_screen.dart';
+import 'package:task_app/screens/recycle_bin_screen.dart';
 
 class DrawerScreen extends StatelessWidget {
   const DrawerScreen({super.key});
@@ -53,17 +53,34 @@ class DrawerScreen extends StatelessWidget {
                 ),
               ),
             ),
+            // BlocBuilder<ThemeBloc, ThemeState>(
+            //   builder: (context, state) {
+            //     return Switch(
+            //       value: state.isDark,
+            //       onChanged: (value) {
+            //         if (value) {
+            //           context.read<ThemeBloc>().add(DarkOn());
+            //         } else {
+            //           context.read<ThemeBloc>().add(DarkOff());
+            //         }
+            //       },
+            //     );
+            //   },
+            // ),
             BlocBuilder<ThemeBloc, ThemeState>(
               builder: (context, state) {
-                return Switch(
-                  value: state.isDark,
-                  onChanged: (value) {
-                    if (value) {
-                      context.read<ThemeBloc>().add(DarkOn());
-                    } else {
+                return IconButton(
+                  icon: state.isDark
+                      ? const Icon(Icons.light_mode)
+                      : const Icon(Icons.dark_mode),
+                  onPressed: () {
+                    if (state.isDark) {
                       context.read<ThemeBloc>().add(DarkOff());
+                    } else {
+                      context.read<ThemeBloc>().add(DarkOn());
                     }
                   },
+                  iconSize: 30.0,
                 );
               },
             ),
