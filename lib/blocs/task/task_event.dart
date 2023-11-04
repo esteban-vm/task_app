@@ -63,3 +63,5 @@ class RemoveTaskPermanently extends TaskEvent {
   @override
   List<Object> get props => [task];
 }
+
+class RemoveAllTasks extends TaskEvent {}
