@@ -33,6 +33,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(context) {
+    final orientation = MediaQuery.of(context).orientation;
+
     return Scaffold(
       appBar: AppBar(
         title: Text(_pages[_selectedPageIndex]['title']),
@@ -47,13 +49,14 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       drawer: const DrawerScreen(),
       body: _pages[_selectedPageIndex]['name'],
-      floatingActionButton: _selectedPageIndex == 0
-          ? FloatingActionButton(
-              tooltip: 'Add task',
-              child: const Icon(Icons.add),
-              onPressed: () => _addTask(context),
-            )
-          : null,
+      floatingActionButton:
+          _selectedPageIndex == 0 && orientation == Orientation.portrait
+              ? FloatingActionButton(
+                  tooltip: 'Add task',
+                  child: const Icon(Icons.add),
+                  onPressed: () => _addTask(context),
+                )
+              : null,
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedPageIndex,
         onTap: (value) {
