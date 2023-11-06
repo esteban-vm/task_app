@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:task_app/screens/sign_in_screen.dart';
+import 'package:task_app/services/app_utils.dart';
 
 class PasswordRecoveryScreen extends StatefulWidget {
   const PasswordRecoveryScreen({super.key});
@@ -80,28 +81,17 @@ class _PasswordRecoveryScreenState extends State<PasswordRecoveryScreen> {
       _auth.sendPasswordResetEmail(email: _emailController.text.trim()).then(
         (_) {
           Navigator.of(context).pushReplacementNamed(SignInScreen.id);
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text(
-                'Check your email',
-                style: TextStyle(color: Colors.white),
-              ),
-              backgroundColor: Colors.green,
-              duration: Duration(seconds: 2),
-            ),
+          AppUtils.showNotification(
+            context,
+            text: 'Check your email',
+            bgColor: Colors.green,
           );
         },
       ).onError(
         (_, __) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text(
-                'An Error has occurred',
-                style: TextStyle(color: Colors.white),
-              ),
-              backgroundColor: Colors.red,
-              duration: Duration(seconds: 2),
-            ),
+          AppUtils.showNotification(
+            context,
+            text: 'An Error has occurred',
           );
         },
       );

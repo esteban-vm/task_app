@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:task_app/screens/home_screen.dart';
 import 'package:task_app/screens/password_recovery_screen.dart';
 import 'package:task_app/screens/sign_up_screen.dart';
+import 'package:task_app/services/app_utils.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
@@ -107,6 +108,12 @@ class _SignInScreenState extends State<SignInScreen> {
             (_) => Navigator.pushReplacementNamed(
               context,
               HomeScreen.id,
+            ),
+          )
+          .onError(
+            (_, __) => AppUtils.showNotification(
+              context,
+              text: 'An Error has occurred',
             ),
           );
     }

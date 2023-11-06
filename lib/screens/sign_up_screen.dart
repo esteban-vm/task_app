@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:task_app/screens/sign_in_screen.dart';
+import 'package:task_app/services/app_utils.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -91,6 +92,12 @@ class _SignInScreenState extends State<SignUpScreen> {
             (_) => Navigator.pushReplacementNamed(
               context,
               SignInScreen.id,
+            ),
+          )
+          .onError(
+            (_, __) => AppUtils.showNotification(
+              context,
+              text: 'An Error has occurred',
             ),
           );
     }
