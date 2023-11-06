@@ -7,7 +7,7 @@ import 'package:task_app/screens/pending_tasks_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
-  static const id = 'tabs';
+  static const id = 'home';
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();

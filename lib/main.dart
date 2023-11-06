@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:task_app/blocs/bloc_exports.dart';
-import 'package:task_app/screens/home_screen.dart';
+import 'package:task_app/firebase_options.dart';
+import 'package:task_app/screens/sign_in_screen.dart';
 import 'package:task_app/services/app_router.dart';
 import 'package:task_app/services/app_theme.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   final directory = await getApplicationDocumentsDirectory();
   final storage = await HydratedStorage.build(storageDirectory: directory);
   HydratedBloc.storage = storage;
@@ -19,8 +22,6 @@ class TaskApp extends StatelessWidget {
 
   @override
   Widget build(context) {
-    final router = AppRouter();
-
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (_) => TaskBloc()),
@@ -30,12 +31,12 @@ class TaskApp extends StatelessWidget {
         builder: (context, state) {
           return MaterialApp(
             title: 'Task App',
-            home: const HomeScreen(),
+            home: const SignInScreen(),
             debugShowCheckedModeBanner: false,
             theme: state.isDark
-                ? AppThemes.data[AppTheme.dark]
-                : AppThemes.data[AppTheme.light],
-            onGenerateRoute: router.onGenerateRoute,
+                ? AppTheme.data[Scheme.dark]
+                : AppTheme.data[Scheme.light],
+            onGenerateRoute: AppRouter.onGenerateRoute,
           );
         },
       ),

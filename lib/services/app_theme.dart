@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-enum AppTheme { light, dark }
+enum Scheme { light, dark }
 
-class AppThemes {
+class AppTheme {
   static final data = {
-    AppTheme.dark: ThemeData(
+    Scheme.dark: ThemeData(
       primaryColor: Colors.black,
       dividerColor: Colors.black54,
       floatingActionButtonTheme: const FloatingActionButtonThemeData(
@@ -31,7 +31,7 @@ class AppThemes {
 
     // ---------------------------------------------------------------- //
 
-    AppTheme.light: ThemeData(
+    Scheme.light: ThemeData(
       primaryColor: Colors.white,
       dividerColor: const Color(0xff757575),
       floatingActionButtonTheme: const FloatingActionButtonThemeData(
