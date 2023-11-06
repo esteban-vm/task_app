@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:task_app/screens/home_screen.dart';
 import 'package:task_app/screens/password_recovery_screen.dart';
 import 'package:task_app/screens/sign_up_screen.dart';
@@ -101,21 +102,15 @@ class _SignInScreenState extends State<SignInScreen> {
     if (isValid) {
       _auth
           .signInWithEmailAndPassword(
-            email: _emailController.text,
-            password: _passwordController.text,
-          )
-          .then(
-            (_) => Navigator.pushReplacementNamed(
-              context,
-              HomeScreen.id,
-            ),
-          )
-          .onError(
-            (_, __) => AppUtils.showNotification(
-              context,
-              text: 'An Error has occurred',
-            ),
-          );
+        email: _emailController.text,
+        password: _passwordController.text,
+      )
+          .then((value) {
+        GetStorage().write('token', value.user!.uid);
+        Navigator.pushReplacementNamed(context, HomeScreen.id);
+      }).onError((_, __) {
+        AppUtils.showNotification(context, text: 'An Error has occurred');
+      });
     }
   }
 }

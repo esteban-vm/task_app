@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:task_app/blocs/bloc_exports.dart';
 import 'package:task_app/screens/home_screen.dart';
 import 'package:task_app/screens/recycle_bin_screen.dart';
+import 'package:task_app/screens/sign_in_screen.dart';
 
 class DrawerScreen extends StatelessWidget {
   const DrawerScreen({super.key});
@@ -69,6 +71,14 @@ class DrawerScreen extends StatelessWidget {
                   iconSize: 30.0,
                 );
               },
+            ),
+            ListTile(
+              onTap: () {
+                GetStorage().remove('token');
+                Navigator.pushReplacementNamed(context, SignInScreen.id);
+              },
+              leading: const Icon(Icons.logout),
+              title: const Text('Logout'),
             ),
           ],
         ),

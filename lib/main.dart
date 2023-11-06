@@ -3,7 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:task_app/blocs/bloc_exports.dart';
 import 'package:task_app/firebase_options.dart';
-import 'package:task_app/screens/sign_in_screen.dart';
+import 'package:task_app/screens/splash_screen.dart';
 import 'package:task_app/services/app_router.dart';
 import 'package:task_app/services/app_theme.dart';
 
@@ -31,7 +31,7 @@ class TaskApp extends StatelessWidget {
         builder: (context, state) {
           return MaterialApp(
             title: 'Task App',
-            home: const SignInScreen(),
+            home: const SplashScreen(),
             debugShowCheckedModeBanner: false,
             theme: state.isDark
                 ? AppTheme.data[Scheme.dark]

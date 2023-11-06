@@ -89,10 +89,7 @@ class _PasswordRecoveryScreenState extends State<PasswordRecoveryScreen> {
         },
       ).onError(
         (_, __) {
-          AppUtils.showNotification(
-            context,
-            text: 'An Error has occurred',
-          );
+          AppUtils.showNotification(context, text: 'An Error has occurred');
         },
       );
     }
