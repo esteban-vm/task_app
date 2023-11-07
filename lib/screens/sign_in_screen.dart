@@ -5,6 +5,8 @@ import 'package:task_app/screens/home_screen.dart';
 import 'package:task_app/screens/password_recovery_screen.dart';
 import 'package:task_app/screens/sign_up_screen.dart';
 import 'package:task_app/services/app_utils.dart';
+import 'package:task_app/widgets/email_field.dart';
+import 'package:task_app/widgets/password_field.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
@@ -39,40 +41,8 @@ class _SignInScreenState extends State<SignInScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: TextFormField(
-                  controller: _emailController,
-                  keyboardType: TextInputType.emailAddress,
-                  decoration: const InputDecoration(labelText: 'Insert email'),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Email is required';
-                    } else {
-                      return null;
-                    }
-                  },
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: TextFormField(
-                  controller: _passwordController,
-                  keyboardType: TextInputType.visiblePassword,
-                  decoration: const InputDecoration(
-                    labelText: 'Insert password',
-                  ),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Password is required';
-                    } else if (value.length < 6) {
-                      return 'Password should be at least 6 characters';
-                    } else {
-                      return null;
-                    }
-                  },
-                ),
-              ),
+              EmailField(controller: _emailController),
+              PasswordField(controller: _passwordController),
               ElevatedButton(
                 onPressed: _handleSignIn,
                 child: const Text('Sign In'),
