@@ -107,6 +107,7 @@ class _SignInScreenState extends State<SignInScreen> {
       )
           .then((value) {
         GetStorage().write('token', value.user!.uid);
+        GetStorage().write('email', value.user!.email);
         Navigator.pushReplacementNamed(context, HomeScreen.id);
       }).onError((_, __) {
         AppUtils.showNotification(context, text: 'An Error has occurred');

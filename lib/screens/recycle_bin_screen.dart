@@ -25,6 +25,7 @@ class RecycleBinScreen extends StatelessWidget {
                     ),
                     onTap: () {
                       context.read<TaskBloc>().add(RemoveAllTasks());
+                      context.read<TaskBloc>().add(GetTasks());
                     },
                   ),
                 ],

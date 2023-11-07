@@ -54,18 +54,16 @@ class EditTaskScreen extends StatelessWidget {
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    final newTask = Task(
+                    final editedTask = Task(
                       id: task.id,
                       title: titleController.text,
                       description: descriptionController.text,
                       date: DateTime.now().toString(),
                       isCompleted: false,
-                      // isDeleted: false,
                       isFavorite: task.isFavorite,
                     );
-                    context
-                        .read<TaskBloc>()
-                        .add(EditTask(oldTask: task, newTask: newTask));
+                    context.read<TaskBloc>().add(EditTask(task: editedTask));
+                    context.read<TaskBloc>().add(GetTasks());
                     Navigator.pop(context);
                   },
                   child: const Text('Save'),

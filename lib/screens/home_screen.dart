@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:task_app/blocs/bloc_exports.dart';
 import 'package:task_app/screens/add_task_screen.dart';
 import 'package:task_app/screens/completed_tasks_screen.dart';
 import 'package:task_app/screens/drawer_screen.dart';
@@ -30,6 +31,12 @@ class _HomeScreenState extends State<HomeScreen> {
   ];
 
   int _selectedPageIndex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    context.read<TaskBloc>().add(GetTasks());
+  }
 
   @override
   Widget build(context) {

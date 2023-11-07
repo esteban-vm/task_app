@@ -7,6 +7,11 @@ sealed class TaskEvent extends Equatable {
   List<Object> get props => [];
 }
 
+class GetTasks extends TaskEvent {
+  @override
+  List<Object> get props => [];
+}
+
 class AddTask extends TaskEvent {
   const AddTask({required this.task});
   final Task task;
@@ -16,12 +21,11 @@ class AddTask extends TaskEvent {
 }
 
 class EditTask extends TaskEvent {
-  const EditTask({required this.oldTask, required this.newTask});
-  final Task oldTask;
-  final Task newTask;
+  const EditTask({required this.task});
+  final Task task;
 
   @override
-  List<Object> get props => [oldTask, newTask];
+  List<Object> get props => [task];
 }
 
 class RestoreTask extends TaskEvent {

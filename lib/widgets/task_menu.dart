@@ -13,6 +13,7 @@ class TaskMenu extends StatelessWidget {
       itemBuilder: (context) {
         if (!task.isRemoved) {
           return <PopupMenuItem>[
+            // Edition
             PopupMenuItem(
               onTap: () {
                 showModalBottomSheet(
@@ -29,9 +30,11 @@ class TaskMenu extends StatelessWidget {
                 label: const Text('Edit'),
               ),
             ),
+            // Favorite / Unfavorite
             PopupMenuItem(
               onTap: () {
                 context.read<TaskBloc>().add(ToggleFavoriteTask(task: task));
+                context.read<TaskBloc>().add(GetTasks());
               },
               child: TextButton.icon(
                 onPressed: null,
@@ -43,9 +46,11 @@ class TaskMenu extends StatelessWidget {
                     : const Text('Remove from\nBookmarks'),
               ),
             ),
+            // Temporal Removal
             PopupMenuItem(
               onTap: () {
                 context.read<TaskBloc>().add(RemoveTaskTemporarily(task: task));
+                context.read<TaskBloc>().add(GetTasks());
               },
               child: TextButton.icon(
                 onPressed: null,
@@ -56,9 +61,11 @@ class TaskMenu extends StatelessWidget {
           ];
         } else {
           return <PopupMenuItem>[
+            // Restoration
             PopupMenuItem(
               onTap: () {
                 context.read<TaskBloc>().add(RestoreTask(task: task));
+                context.read<TaskBloc>().add(GetTasks());
               },
               child: TextButton.icon(
                 onPressed: null,
@@ -66,9 +73,11 @@ class TaskMenu extends StatelessWidget {
                 label: const Text('Restore'),
               ),
             ),
+            // Permanent Removal
             PopupMenuItem(
               onTap: () {
                 context.read<TaskBloc>().add(RemoveTaskPermanently(task: task));
+                context.read<TaskBloc>().add(GetTasks());
               },
               child: TextButton.icon(
                 onPressed: null,
