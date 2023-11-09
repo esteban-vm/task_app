@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:task_app/screens/sign_in_screen.dart';
 import 'package:task_app/services/app_utils.dart';
+import 'package:task_app/widgets/email_field.dart';
 
 class PasswordRecoveryScreen extends StatefulWidget {
   const PasswordRecoveryScreen({super.key});
@@ -35,24 +36,7 @@ class _PasswordRecoveryScreenState extends State<PasswordRecoveryScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: TextFormField(
-                controller: _emailController,
-                keyboardType: TextInputType.emailAddress,
-                decoration: const InputDecoration(
-                  border: UnderlineInputBorder(),
-                  labelText: 'Enter your email',
-                ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Email is required';
-                  } else {
-                    return null;
-                  }
-                },
-              ),
-            ),
+            EmailField(controller: _emailController),
             ElevatedButton(
               onPressed: _handlePasswordRecovery,
               style: ElevatedButton.styleFrom(
